@@ -55,4 +55,13 @@ abstract class Shape
             }
         }
     }
+
+    virtual public void Move(float dx, float dy)
+    {
+        for (int i = 0; i < Vertices.Count; i++)
+        {
+            Vertices[i] = new PointF(Vertices[i].X + dx, Vertices[i].Y + dy);
+        }
+    }
+
 }
