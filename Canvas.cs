@@ -22,6 +22,8 @@ namespace grafpack_2202368
 
             // TEMP TEST SHAPE
             shapes.Add(new Square(new PointF(200, 200), 100));
+            shapes.Add(new Triangle(new PointF(200, 200), 100));
+            shapes.Add(new Circle(new PointF(400, 200), 100, 10));
 
             Redraw();
         }
@@ -36,8 +38,8 @@ namespace grafpack_2202368
             foreach (Shape s in shapes)
             {
                 if (s.Vertices.Count > 0 &&
-                    e.X >= s.Vertices[0].X - 10 && e.X <= s.Vertices[0].X + 10 &&
-                    e.Y >= s.Vertices[0].Y - 10 && e.Y <= s.Vertices[0].Y + 10)
+                    e.X >= s.Vertices[0].X - 30 && e.X <= s.Vertices[0].X + 30 &&
+                    e.Y >= s.Vertices[0].Y - 30 && e.Y <= s.Vertices[0].Y + 30)
                 {
                     selectedShape = s;
                     isDragging = true;
