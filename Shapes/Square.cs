@@ -3,7 +3,7 @@
 
 namespace grafpack_2202368.Shapes
 {
-    class Square : Shape
+    public class Square : Shape
     {
         public Square(PointF center, float size)
         {

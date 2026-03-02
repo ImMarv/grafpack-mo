@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace grafpack_2202368.Shapes
 {
-    class Circle : Shape
+    public class Circle : Shape
     {
-        public Circle(PointF center, float size, int v) 
+        public Circle(PointF center, float size, int v)
         {
             int numVertices = v > 0 ? v : 20; // Default to 20 vertices if v is not positive
             float radius = size / 2;
