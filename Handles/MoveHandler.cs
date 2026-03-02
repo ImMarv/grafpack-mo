@@ -25,9 +25,7 @@ namespace grafpack_2202368.Handles
         {
             foreach (Shape s in shapes)
             {
-                if (s.Vertices.Count > 0 &&
-                    e.X >= s.Vertices[0].X - 30 && e.X <= s.Vertices[0].X + 30 &&
-                    e.Y >= s.Vertices[0].Y - 30 && e.Y <= s.Vertices[0].Y + 30)
+                if (s.Contains(e.Location))
                 {
                     selectedShape = s;
                     isDragging = true;

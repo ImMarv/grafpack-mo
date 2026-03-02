@@ -5,7 +5,10 @@ using System.Drawing;
 abstract class Shape
 {
     public List<PointF> Vertices = new List<PointF>();
-    public bool IsSelected = false;
+    public bool Contains(PointF point)
+    {
+        return false; // Placeholder for hit testing
+    }
 
     public abstract void Draw(Bitmap canvas);
 

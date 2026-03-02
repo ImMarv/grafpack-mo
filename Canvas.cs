@@ -34,6 +34,7 @@ namespace grafpack_2202368
             shapes.Add(new Triangle(new PointF(200, 200), 100));
             shapes.Add(new Circle(new PointF(400, 200), 100, 10));
 
+            SetCreateSquareMode();
             Redraw();
         }
 
@@ -56,17 +57,48 @@ namespace grafpack_2202368
         {
             currentHandler?.OnMouseUp(e);
         }
-
         void Redraw()
         {
-            canvas = new Bitmap(ClientSize.Width, ClientSize.Height);
+            using (Graphics g = Graphics.FromImage(canvas))
+            {
+                g.Clear(Color.White);
+            }
 
             foreach (Shape s in shapes)
             {
                 s.Draw(canvas);
             }
 
+            if (PreviewShape != null)
+            {
+                PreviewShape.Draw(canvas);
+            }
+
             Invalidate();
+        }
+
+        void SetCreateSquareMode()
+        {
+            currentHandler = new CreateShapeHandler(
+                ShapeType.Square,
+                shapes,
+                Redraw);
+        }
+
+        void SetCreateCircleMode()
+        {
+            currentHandler = new CreateShapeHandler(
+                ShapeType.Circle,
+                shapes,
+                Redraw);
+        }
+
+        void SetCreateTriangleMode()
+        {
+            currentHandler = new CreateShapeHandler(
+                ShapeType.Triangle,
+                shapes,
+                Redraw);
         }
     }
 }
