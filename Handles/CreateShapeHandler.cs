@@ -27,7 +27,7 @@ namespace grafpack_2202368.Handles
         { 
             this.shapes = shapes;
             this.redraw = redraw;
-            this.shapeType = shapeType;
+            this.shapeType = shape;
         }
         
         public void OnMouseDown(MouseEventArgs e)
@@ -51,7 +51,7 @@ namespace grafpack_2202368.Handles
                     break;
                 case ShapeType.Circle:
                     float radius = (float)Math.Sqrt(dx * dx + dy * dy);
-                    previewShape = new Circle(startPoint, size, 60);
+                    previewShape = new Circle(startPoint, radius, 60);
                     break;
                 case ShapeType.Triangle:
                     previewShape = new Triangle(startPoint, size);

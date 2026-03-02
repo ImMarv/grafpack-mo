@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace grafpack_2202368.Shapes
 {
-    class Circle : Shape
+    public class Circle : Shape
     {
         public Circle(PointF center, float size, int v) 
         {

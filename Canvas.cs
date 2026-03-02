@@ -1,5 +1,6 @@
 ﻿using grafpack_2202368.Handles;
 using grafpack_2202368.Shapes;
+using grafpack_2202368.shared;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -57,6 +58,17 @@ namespace grafpack_2202368
         {
             currentHandler?.OnMouseUp(e);
         }
+        public Shape PreviewShape
+        {
+            get
+            {
+                if (currentHandler is CreateShapeHandler createHandler)
+                    return createHandler.PreviewShape;
+
+                return null;
+            }
+        }
+
         void Redraw()
         {
             using (Graphics g = Graphics.FromImage(canvas))
@@ -69,10 +81,7 @@ namespace grafpack_2202368
                 s.Draw(canvas);
             }
 
-            if (PreviewShape != null)
-            {
-                PreviewShape.Draw(canvas);
-            }
+            PreviewShape?.Draw(canvas);
 
             Invalidate();
         }
@@ -80,25 +89,26 @@ namespace grafpack_2202368
         void SetCreateSquareMode()
         {
             currentHandler = new CreateShapeHandler(
-                ShapeType.Square,
                 shapes,
-                Redraw);
+                Redraw,
+                ShapeType.Square);
         }
 
         void SetCreateCircleMode()
         {
             currentHandler = new CreateShapeHandler(
-                ShapeType.Circle,
                 shapes,
-                Redraw);
+                Redraw,
+                ShapeType.Circle
+                );
         }
 
         void SetCreateTriangleMode()
         {
             currentHandler = new CreateShapeHandler(
-                ShapeType.Triangle,
                 shapes,
-                Redraw);
+                Redraw,
+                ShapeType.Triangle);
         }
     }
 }

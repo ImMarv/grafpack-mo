@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace grafpack_2202368.Shapes
 {
-    class Triangle : Shape
+    public class Triangle : Shape
     {
         public Triangle(PointF center, float size) 
         {

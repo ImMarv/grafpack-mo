@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 
-abstract class Shape
+public abstract class Shape
 {
     public List<PointF> Vertices = new List<PointF>();
     public bool Contains(PointF point)
