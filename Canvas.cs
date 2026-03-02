@@ -34,7 +34,7 @@ namespace grafpack_2202368
             shapes.Add(new Square(new PointF(200, 200), 100));
             shapes.Add(new Triangle(new PointF(200, 200), 100));
             shapes.Add(new Circle(new PointF(400, 200), 100, 10));
-
+            SetMode(ShapeMode.CreateSquare);
             Redraw();
         }
 
@@ -84,30 +84,34 @@ namespace grafpack_2202368
 
             Invalidate();
         }
-
-        void SetCreateSquareMode()
+        void SetMode(ShapeMode mode)
         {
-            currentHandler = new CreateShapeHandler(
-                shapes,
-                Redraw,
-                ShapeType.Square);
-        }
-
-        void SetCreateCircleMode()
-        {
-            currentHandler = new CreateShapeHandler(
-                shapes,
-                Redraw,
-                ShapeType.Circle
-                );
-        }
-
-        void SetCreateTriangleMode()
-        {
-            currentHandler = new CreateShapeHandler(
-                shapes,
-                Redraw,
-                ShapeType.Triangle);
+            switch (mode)
+            {
+                case ShapeMode.CreateSquare:
+                    currentHandler = new CreateShapeHandler(
+                    shapes,
+                    Redraw,
+                    ShapeType.Square);
+                    break;
+                case ShapeMode.CreateCircle:
+                    currentHandler = new CreateShapeHandler(
+                    shapes,
+                    Redraw,
+                    ShapeType.Circle
+                    );
+                    break;
+                case ShapeMode.CreateTriangle:
+                    currentHandler = new CreateShapeHandler(
+                    shapes,
+                    Redraw,
+                    ShapeType.Triangle
+                    );
+                    break;
+                case ShapeMode.Move:
+                    currentHandler = new MoveHandler(shapes, Redraw);
+                    break;
+            }
         }
     }
 }

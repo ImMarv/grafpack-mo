@@ -5,6 +5,7 @@ using System.Drawing;
 public abstract class Shape
 {
     public List<PointF> Vertices = new List<PointF>();
+    public PointF Center { get; protected set; }
     public bool Contains(PointF point)
     {
         return false; // Placeholder for hit testing
@@ -59,12 +60,23 @@ public abstract class Shape
         }
     }
 
-    virtual public void Move(float dx, float dy)
+    public abstract RectangleF GetBoundingBox();
+
+    public virtual bool HitTest(PointF point)
+    {
+        return GetBoundingBox().Contains(point);
+    }
+
+    public virtual void Move(float dx, float dy)
     {
         for (int i = 0; i < Vertices.Count; i++)
         {
-            Vertices[i] = new PointF(Vertices[i].X + dx, Vertices[i].Y + dy);
+            Vertices[i] = new PointF(
+                Vertices[i].X + dx,
+                Vertices[i].Y + dy);
         }
+
+        Center = new PointF(Center.X + dx, Center.Y + dy);
     }
 
 }
