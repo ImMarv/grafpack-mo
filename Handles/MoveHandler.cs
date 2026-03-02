@@ -9,7 +9,7 @@ namespace grafpack_2202368.Handles
     {
         private List<Shape> shapes;
         private Shape selectedShape;
-        private bool isDragging;
+        private bool isMoving;
         private PointF lastMousePos;
         private Action redraw;
         public MoveHandler(List<Shape> shapes, Action redraw)
@@ -20,12 +20,13 @@ namespace grafpack_2202368.Handles
 
         public void OnMouseDown(MouseEventArgs e)
         {
-            foreach (Shape s in shapes)
+            for (int i = shapes.Count - 1; i >= 0; i--)
             {
-                if (s.Contains(e.Location))
+
+                if (shapes[i].HitTest(e.Location))
                 {
-                    selectedShape = s;
-                    isDragging = true;
+                    selectedShape = shapes[i];
+                    isMoving = true;
                     lastMousePos = e.Location;
                     break;
                 }
@@ -34,7 +35,7 @@ namespace grafpack_2202368.Handles
 
         public void OnMouseMove(MouseEventArgs e)
         {
-            if (isDragging && selectedShape != null)
+            if (isMoving && selectedShape != null)
             {
                 float dx = e.X - lastMousePos.X;
                 float dy = e.Y - lastMousePos.Y;
@@ -46,7 +47,7 @@ namespace grafpack_2202368.Handles
 
         public void OnMouseUp(MouseEventArgs e)
         {
-            isDragging = false;
+            isMoving = false;
             selectedShape = null;
         }
     }

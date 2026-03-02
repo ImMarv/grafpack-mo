@@ -34,7 +34,7 @@ namespace grafpack_2202368
             shapes.Add(new Square(new PointF(200, 200), 100));
             shapes.Add(new Triangle(new PointF(200, 200), 100));
             shapes.Add(new Circle(new PointF(400, 200), 100, 10));
-
+            SetMoveMode();
             Redraw();
         }
 
@@ -108,6 +108,11 @@ namespace grafpack_2202368
                 shapes,
                 Redraw,
                 ShapeType.Triangle);
+        }
+
+        void SetMoveMode()
+        {
+            currentHandler = new MoveHandler(shapes, Redraw);
         }
     }
 }
