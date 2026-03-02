@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace grafpack_2202368.Shapes
 {
     public class Triangle : Shape
     {
-        public Triangle(PointF center, float size) 
+        public Triangle(PointF center, float size)
         {
             float half = (float)(size * Math.Sqrt(3) / 6);
 

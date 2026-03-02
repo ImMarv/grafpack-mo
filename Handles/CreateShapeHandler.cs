@@ -3,10 +3,6 @@ using grafpack_2202368.shared;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace grafpack_2202368.Handles
@@ -24,12 +20,12 @@ namespace grafpack_2202368.Handles
         public Shape PreviewShape => previewShape;
 
         public CreateShapeHandler(List<Shape> shapes, Action redraw, ShapeType shape)
-        { 
+        {
             this.shapes = shapes;
             this.redraw = redraw;
             this.shapeType = shape;
         }
-        
+
         public void OnMouseDown(MouseEventArgs e)
         {
             startPoint = e.Location;
@@ -44,7 +40,7 @@ namespace grafpack_2202368.Handles
 
             float size = Math.Max(Math.Abs(dx), Math.Abs(dy));
 
-            switch (shapeType) 
+            switch (shapeType)
             {
                 case ShapeType.Square:
                     previewShape = new Square(startPoint, size);
