@@ -79,4 +79,20 @@ public abstract class Shape
         Center = new PointF(Center.X + dx, Center.Y + dy);
     }
 
+    public virtual void Rotate(float angleDegrees)
+    {
+        float angleRadians = (float)(angleDegrees * Math.PI / 180);
+        float cosA = (float)Math.Cos(angleRadians);
+        float sinA = (float)Math.Sin(angleRadians);
+        for (int i = 0; i < Vertices.Count; i++)
+        {
+            float x = Vertices[i].X - Center.X;
+            float y = Vertices[i].Y - Center.Y;
+            float rotatedX = x * cosA - y * sinA;
+            float rotatedY = x * sinA + y * cosA;
+            Vertices[i] = new PointF(
+                rotatedX + Center.X,
+                rotatedY + Center.Y);
+        }
+    }
 }
