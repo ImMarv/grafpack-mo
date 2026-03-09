@@ -34,7 +34,7 @@ namespace grafpack_2202368
             shapes.Add(new Square(new PointF(200, 200), 100));
             shapes.Add(new Triangle(new PointF(200, 200), 100));
             shapes.Add(new Circle(new PointF(400, 200), 100, 10));
-            SetMode(ShapeMode.Rotate);
+            SetMode(ShapeMode.None);
             Redraw();
         }
 
@@ -78,11 +78,45 @@ namespace grafpack_2202368
             foreach (Shape s in shapes)
             {
                 s.Draw(canvas);
+
+                if (s.IsSelected)
+                {
+                    s.DrawBoundingBox(canvas);
+                        
+                }
             }
 
             PreviewShape?.Draw(canvas);
 
             Invalidate();
+        }
+
+        Shape GetSelectedShape()
+        {
+            foreach (Shape s in shapes)
+            {
+                if (s.IsSelected)
+                    return s;
+            }
+            return null;
+        }
+        void DeleteSelectedShape()
+        {
+            Shape selected = GetSelectedShape();
+            if (selected != null)
+            {
+                shapes.Remove(selected);
+                Redraw();
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if (e.KeyCode == Keys.Delete)
+            {
+                DeleteSelectedShape();
+            }
         }
         void SetMode(ShapeMode mode)
         {
@@ -113,6 +147,9 @@ namespace grafpack_2202368
                     break;
                 case ShapeMode.Rotate:
                     currentHandler = new RotateShapeHandler(shapes, Redraw);
+                    break;
+                case ShapeMode.None:
+                    currentHandler = new SelectHandler(shapes, Redraw);
                     break;
             }
         }
