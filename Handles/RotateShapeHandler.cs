@@ -54,7 +54,7 @@ namespace grafpack_2202368.Handles
 
             float currentAngle = (float)Math.Atan2(dy, dx);
 
-            float delta = currentAngle - lastAngle
+            float delta = currentAngle - lastAngle;
             float deltaDegrees = delta * (180f / (float)Math.PI);
 
             selectedShape.Rotate(deltaDegrees);
