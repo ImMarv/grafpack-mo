@@ -82,7 +82,7 @@ namespace grafpack_2202368
                 if (s.IsSelected)
                 {
                     s.DrawBoundingBox(canvas);
-                        
+
                 }
             }
 
