@@ -34,7 +34,7 @@ namespace grafpack_2202368
             shapes.Add(new Square(new PointF(200, 200), 100));
             shapes.Add(new Triangle(new PointF(200, 200), 100));
             shapes.Add(new Circle(new PointF(400, 200), 100, 10));
-            SetMode(ShapeMode.CreateSquare);
+            SetMode(ShapeMode.Rotate);
             Redraw();
         }
 
@@ -110,6 +110,9 @@ namespace grafpack_2202368
                     break;
                 case ShapeMode.Move:
                     currentHandler = new MoveHandler(shapes, Redraw);
+                    break;
+                case ShapeMode.Rotate:
+                    currentHandler = new RotateShapeHandler(shapes, Redraw);
                     break;
             }
         }
