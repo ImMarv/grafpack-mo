@@ -16,6 +16,7 @@ namespace grafpack_2202368.Handles
         private Shape selectedShape;
         private bool isRotating;
         private Action redraw;
+        private float lastAngle;
 
         public RotateShapeHandler(List<Shape> shapes, Action redraw)
         {
@@ -25,13 +26,17 @@ namespace grafpack_2202368.Handles
 
         public void OnMouseDown(MouseEventArgs e)
         {
-            for (int i = shapes.Count - 1; i >= 0; i--)
+            foreach (var s in shapes.AsEnumerable().Reverse())
             {
-
-                if (shapes[i].HitTest(e.Location))
+                if (s.HitTest(e.Location))
                 {
-                    selectedShape = shapes[i];
+                    selectedShape = s;
                     isRotating = true;
+
+                    lastAngle = (float)Math.Atan2(
+                        e.Y - s.Center.Y,
+                        e.X - s.Center.X);
+
                     break;
                 }
             }
@@ -39,27 +44,24 @@ namespace grafpack_2202368.Handles
 
         public void OnMouseMove(MouseEventArgs e)
         {
-            float currentAngle = 0;
-            // calculate the angle based on mouse movement and shape center.
-            if (isRotating) {
-                PointF center = selectedShape.GetBoundingBox().Location;
-                float dx = e.X - center.X;
-                float dy = e.Y - center.Y;
-                currentAngle = (float)(Math.Atan2(dy, dx) * 180 / Math.PI);
-            }
-            
-            if (currentAngle > 0)
-            {
-                ++currentAngle;
-            } else
-            {
-                --currentAngle;
-            }
-            if (isRotating && selectedShape != null)
-            {
-                selectedShape.Rotate(currentAngle);
-                redraw();
-            }
+            if (!isRotating || selectedShape == null)
+                return;
+
+            PointF center = selectedShape.GetBoundingBox().Location;
+
+            float dx = e.X - center.X;
+            float dy = e.Y - center.Y;
+
+            float currentAngle = (float)Math.Atan2(dy, dx);
+
+            float delta = currentAngle - lastAngle
+            float deltaDegrees = delta * (180f / (float)Math.PI);
+
+            selectedShape.Rotate(deltaDegrees);
+
+            lastAngle = currentAngle;
+
+            redraw();
         }
 
         public void OnMouseUp(MouseEventArgs e)
