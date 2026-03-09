@@ -13,6 +13,8 @@ public abstract class Shape
 
     public abstract void Draw(Bitmap canvas);
 
+    public virtual bool IsSelected { get; set; }
+
     protected void PutPixel(Bitmap canvas, int x, int y, Color color)
     {
         if (x >= 0 && x < canvas.Width &&
@@ -94,5 +96,19 @@ public abstract class Shape
                 rotatedX + Center.X,
                 rotatedY + Center.Y);
         }
+    }
+    public void DrawBoundingBox(Bitmap canvas)
+    {
+        RectangleF box = GetBoundingBox();
+
+        PointF p1 = new PointF(box.Left, box.Top);
+        PointF p2 = new PointF(box.Right, box.Top);
+        PointF p3 = new PointF(box.Right, box.Bottom);
+        PointF p4 = new PointF(box.Left, box.Bottom);
+
+        DrawLine(canvas, p1, p2);
+        DrawLine(canvas, p2, p3);
+        DrawLine(canvas, p3, p4);
+        DrawLine(canvas, p4, p1);
     }
 }
