@@ -46,14 +46,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Canvas.cs">
+    <Compile Include="Core\ShapeManager.cs" />
+    <Compile Include="shared\ToolType.cs" />
+    <Compile Include="UI\Canvas.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Canvas.Designer.cs">
+    <Compile Include="UI\Canvas.Designer.cs">
       <DependentUpon>Canvas.cs</DependentUpon>
     </Compile>
     <Compile Include="Handles\CreateShapeHandler.cs" />
-    <Compile Include="Handles\DeleteHandler.cs" />
     <Compile Include="Handles\IInteractionHandler.cs" />
     <Compile Include="Handles\MoveHandler.cs" />
     <Compile Include="Handles\RotateShapeHandler.cs" />

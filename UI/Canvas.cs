@@ -9,17 +9,6 @@ namespace grafpack_2202368
 {
     public partial class Canvas : Form
     {
-        enum ShapeMode
-        {
-            None,
-            CreateSquare,
-            CreateCircle,
-            CreateTriangle,
-            Move,
-            Rotate,
-            Delete,
-            Scale
-        }
         IInteractionHandler currentHandler;
         Bitmap canvas;
         List<Shape> shapes = new List<Shape>();
@@ -34,7 +23,8 @@ namespace grafpack_2202368
             shapes.Add(new Square(new PointF(200, 200), 100));
             shapes.Add(new Triangle(new PointF(200, 200), 100));
             shapes.Add(new Circle(new PointF(400, 200), 100, 10));
-            SetMode(ShapeMode.None);
+            shapes.Add(new Circle(new PointF(400, 200), 100, 10));
+            SetMode(ToolType.CreateTriangle);
             Redraw();
         }
 
@@ -118,37 +108,37 @@ namespace grafpack_2202368
                 DeleteSelectedShape();
             }
         }
-        void SetMode(ShapeMode mode)
+        void SetMode(ToolType mode)
         {
             switch (mode)
             {
-                case ShapeMode.CreateSquare:
+                case ToolType.CreateSquare:
                     currentHandler = new CreateShapeHandler(
                     shapes,
                     Redraw,
                     ShapeType.Square);
                     break;
-                case ShapeMode.CreateCircle:
+                case ToolType.CreateCircle:
                     currentHandler = new CreateShapeHandler(
                     shapes,
                     Redraw,
                     ShapeType.Circle
                     );
                     break;
-                case ShapeMode.CreateTriangle:
+                case ToolType.CreateTriangle:
                     currentHandler = new CreateShapeHandler(
                     shapes,
                     Redraw,
                     ShapeType.Triangle
                     );
                     break;
-                case ShapeMode.Move:
+                case ToolType.Move:
                     currentHandler = new MoveHandler(shapes, Redraw);
                     break;
-                case ShapeMode.Rotate:
+                case ToolType.Rotate:
                     currentHandler = new RotateShapeHandler(shapes, Redraw);
                     break;
-                case ShapeMode.None:
+                case ToolType.None:
                     currentHandler = new SelectHandler(shapes, Redraw);
                     break;
             }
