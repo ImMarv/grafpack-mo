@@ -24,12 +24,17 @@ public abstract class Shape
         }
     }
 
-    protected void DrawLine(Bitmap canvas, PointF p1, PointF p2)
+    protected void DrawLine(Bitmap canvas, PointF p1, PointF p2, Color color = default) //using bresenham's line algorithm
     {
+        if (default == color)
+        {
+            color = Color.Black;
+        }
+            
         int x1 = (int)p1.X;
-        int y1 = (int)p1.Y;
+        int y1 = (int)p1.Y; // point 1
         int x2 = (int)p2.X;
-        int y2 = (int)p2.Y;
+        int y2 = (int)p2.Y; // point 2
 
         int dx = Math.Abs(x2 - x1);
         int dy = Math.Abs(y2 - y1);
@@ -41,7 +46,7 @@ public abstract class Shape
 
         while (true)
         {
-            PutPixel(canvas, x1, y1, Color.Black);
+            PutPixel(canvas, x1, y1, color);
 
             if (x1 == x2 && y1 == y2)
                 break;
@@ -99,6 +104,7 @@ public abstract class Shape
     }
     public void DrawBoundingBox(Bitmap canvas)
     {
+        Color boxColor = Color.Red;
         RectangleF box = GetBoundingBox();
 
         PointF p1 = new PointF(box.Left, box.Top);
@@ -106,9 +112,9 @@ public abstract class Shape
         PointF p3 = new PointF(box.Right, box.Bottom);
         PointF p4 = new PointF(box.Left, box.Bottom);
 
-        DrawLine(canvas, p1, p2);
-        DrawLine(canvas, p2, p3);
-        DrawLine(canvas, p3, p4);
-        DrawLine(canvas, p4, p1);
+        DrawLine(canvas, p1, p2, boxColor);
+        DrawLine(canvas, p2, p3, boxColor);
+        DrawLine(canvas, p3, p4, boxColor);
+        DrawLine(canvas, p4, p1, boxColor);
     }
 }
